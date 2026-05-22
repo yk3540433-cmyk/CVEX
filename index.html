@@ -1,0 +1,117 @@
+<<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام الاستعلام العصري</title>
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --dark: #09090b;
+            --card-bg: #18181b;
+            --text: #ffffff;
+        }
+
+        body { 
+            margin: 0; min-height: 100vh; background: var(--dark);
+            display: flex; justify-content: center; align-items: center; 
+            font-family: 'Cairo', sans-serif; color: var(--text);
+        }
+
+        .card { 
+            background: var(--card-bg);
+            padding: 40px; border-radius: 25px;
+            width: 90%; max-width: 400px; text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 1px solid #27272a;
+        }
+
+        input { 
+            width: 100%; padding: 15px; margin: 15px 0;
+            background: #09090b; border: 1px solid #3f3f46;
+            border-radius: 12px; color: white; text-align: center;
+            box-sizing: border-box; outline: none;
+        }
+
+        button { 
+            width: 100%; padding: 15px; background: var(--primary);
+            border: none; border-radius: 12px; color: white; 
+            font-weight: bold; cursor: pointer; transition: 0.4s;
+        }
+
+        button:hover { background: #4338ca; transform: scale(1.02); }
+
+        /* انيميشن ظهور الصورة */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .result-container { 
+            margin-top: 30px; 
+            animation: fadeIn 0.6s ease-out;
+        }
+        
+        #resultImg { 
+            width: 100%; max-height: 400px; 
+            object-fit: contain; border-radius: 15px; display: none;
+        }
+
+        #downloadBtn {
+            display: none; margin-top: 15px; padding: 12px; 
+            background: #10b981; color: white; text-decoration: none; 
+            border-radius: 12px; font-weight: bold; width: 100%;
+            display: inline-block; transition: 0.3s;
+        }
+
+        #downloadBtn:hover { background: #059669; }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h2>استعلام النتيجة</h2>
+        <input type="text" id="idInput" placeholder="أدخل الرقم القومي (14)" maxlength="14">
+        <button onclick="checkData()">عرض النتيجة</button>
+        
+        <div class="result-container" id="resBox" style="display: none;">
+            <img id="resultImg" src="" alt="نتيجة">
+            <a id="downloadBtn" href="#" download="النتيجة.jpg">تحميل الصورة</a>
+            <p id="statusMsg"></p>
+        </div>
+    </div>
+
+    <script>
+        function checkData() {
+            let id = document.getElementById('idInput').value;
+            let img = document.getElementById('resultImg');
+            let btn = document.getElementById('downloadBtn');
+            let resBox = document.getElementById('resBox');
+            let msg = document.getElementById('statusMsg');
+
+            const database = {
+                "12345678901234": "IMG-20260522-WA0004.jpg",
+                "11111111111111": "IMG-20260522-WA0005.jpg"
+            };
+
+            if (id.length !== 14) { alert("يرجى إدخال 14 رقماً"); return; }
+
+            resBox.style.display = "block";
+
+            if (database[id]) {
+                img.src = database[id];
+                btn.href = database[id];
+                img.style.display = "block";
+                btn.style.display = "block";
+                msg.innerText = "✓ تم العثور على النتيجة";
+                msg.style.color = "#10b981";
+            } else {
+                img.style.display = "none";
+                btn.style.display = "none";
+                msg.innerText = "✕ عذراً، الرقم غير مسجل";
+                msg.style.color = "#ef4444";
+            }
+        }
+    </script>
+</body>
+</html>
