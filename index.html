@@ -19,7 +19,7 @@
     overflow-x: hidden;
   }
 
-.intro {
+ .intro {
     position: fixed;
     top: 0;
     left: 0;
@@ -30,11 +30,466 @@
     pointer-events: none;
   }
 
-.intro-right,.intro-left {
+ .intro-right,.intro-left {
     width: 50%;
     height: 100%;
     background: #000;
     border-right: 2px solid #c9a227;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+  }
+
+ .intro-left {
+    border-right: none;
+    border-left: 2px solid #c9a227;
+  }
+
+ .intro-right.active { transform: translateX(-100%); }
+ .intro-left.active { transform: translateX(100%); }
+
+ .intro-text {
+    color: #c9a227;
+    font-size: 32px;
+    font-weight: bold;
+    text-shadow: 0 0 20px #c9a227;
+    animation: glow 1.5s ease-in-out infinite;
+  }
+
+  @keyframes glow {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+  }
+
+ .header {
+    background: #f2c419;
+    color: #000;
+    padding: 10px 0;
+    font-weight: bold;
+    font-size: 14px;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
+  }
+
+ .marquee {
+    display: inline-block;
+    animation: scroll-right 15s linear infinite;
+  }
+
+  @keyframes scroll-right {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+ .container {
+    width: 100%;
+    padding: 15px 10px;
+    opacity: 0;
+    animation: fadeIn 0.5s 1.3s forwards;
+  }
+
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+
+ .search-box {
+    border: 2px solid #c9a227;
+    border-radius: 12px;
+    padding: 18px 12px;
+    margin-bottom: 15px;
+  }
+
+ .title {
+    color: #c9a227;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 6px;
+  }
+
+ .subtitle {
+    color: #c9a227;
+    font-size: 12px;
+    text-align: center;
+    margin-bottom: 15px;
+  }
+
+  select, input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    background: #000;
+    border: 2px solid #333;
+    border-radius: 8px;
+    color: #ffffff;
+    font-size: 15px;
+    text-align: center;
+  }
+
+ .btn {
+    width: 100%;
+    padding: 12px;
+    background: #c9a227;
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+ .result-box {
+    border: 2px solid #c9a227;
+    border-radius: 12px;
+    padding: 12px 8px;
+    display: none;
+    margin-top: 15px;
+  }
+
+ .result-title {
+    color: #f2c419;
+    font-size: 22px;
+    text-align: center;
+    margin-bottom: 15px;
+    font-weight: bold;
+  }
+
+ .student-name {
+    background: transparent;
+    padding: 10px 0;
+    margin-bottom: 15px;
+    font-weight: bold;
+    color: #f2c419;
+    font-size: 18px;
+    text-align: center;
+  }
+
+ .label-white {
+    color: #ffffff;
+  }
+
+ .section-title {
+    background: #c9a227;
+    color: #000;
+    padding: 9px;
+    text-align: center;
+    font-weight: bold;
+    margin: 12px 0 0 0;
+    font-size: 14px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+
+  table th {
+    background: #c9a227;
+    color: #000;
+    padding: 8px 3px;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid #000;
+  }
+
+  table td {
+    background: #000;
+    padding: 8px 3px;
+    text-align: center;
+    border: 1px solid #333;
+    color: #ffffff;
+  }
+
+  table td.subject-name {
+    color: #f2c419;
+    font-weight: bold;
+    text-align: right;
+  }
+
+  tr.gold-row td {
+    background: #c9a227;
+    color: #000;
+    font-weight: bold;
+  }
+
+ .btn-print {
+    width: 100%;
+    padding: 12px;
+    background: #c9a227;
+    color: #000;
+    border: none;
+    border-radius: 25px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
+  }
+
+ .not-found {
+    color: #ff4444;
+    text-align: center;
+    padding: 20px;
+    font-size: 16px;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+
+<div class="intro" id="intro">
+  <div class="intro-left" id="leftDoor">
+    <div class="intro-text">بك</div>
+  </div>
+  <div class="intro-right" id="rightDoor">
+    <div class="intro-text">مرحباً</div>
+  </div>
+</div>
+
+<div class="header">
+  <div class="marquee">
+    تحياتي إدارة المدرسة......................
+  </div>
+</div>
+
+<div class="container">
+  <div class="search-box">
+    <div class="title">استعلام النتائج</div>
+    <div class="subtitle">مدرسة/ الشهيد احمد راضي الثانوية المشتركة</div>
+
+    <select id="grade">
+      <option>الصف الأول الثانوي</option>
+      <option>الصف الثاني الثانوي (علمي)</option>
+      <option>الصف الثاني الثانوي (أدبي)</option>
+    </select>
+
+    <input type="text" id="nationalId" placeholder="أدخل الرقم القومي" inputmode="numeric">
+
+    <button class="btn" onclick="searchResult()">بحث</button>
+  </div>
+
+  <div class="result-box" id="resultBox"></div>
+</div>
+
+<script>
+  window.onload = function() {
+    setTimeout(() => {
+      document.getElementById('leftDoor').classList.add('active');
+      document.getElementById('rightDoor').classList.add('active');
+      setTimeout(() => {
+        document.getElementById('intro').style.display = 'none';
+      }, 1200);
+    }, 1500);
+  }
+
+  const studentsDB = {
+    "31010281401096": {
+      name: "محمود محمد محمود طه خليل",
+      grade: "الصف الأول",
+      basic: [["اللغة العربية", 60, 22, 82], ["اللغة الإنجليزية", 65, 22.3, 87.3], ["الرياضيات", 63, 21, 84], ["علوم متكاملة", 62, 26, 88], ["فلسفة", 65, 27, 92], ["تاريخ", 63, 27, 90]],
+      total: 523.3,
+      fail: [["التربية الدينية", 25, 12, 37], ["اللغة الثانية", 22, 10, 32]],
+      prog: [["البرمجة", 24, 11, 35]]
+    },
+    "31007291403037": {
+      name: "محمد عزازى سيد عزازى البقلى",
+      grade: "الصف الأول",
+      basic: [["اللغة العربية", 55, 22, 77], ["اللغة الإنجليزية", 67, 23, 90], ["الرياضيات", 65, 28.3, 93.3], ["علوم متكاملة", 70, 27, 97], ["فلسفة", 59, 24, 83], ["تاريخ", 56, 25, 81]],
+      total: 521.3,
+      fail: [["التربية الدينية", 20, 9, 29], ["اللغة الثانية", 18, 8, 26]],
+      prog: [["البرمجة", 19, 9, 28]]
+    },
+    "31010281401098": {
+      name: "محمد سعيد أحمد",
+      grade: "الصف الأول",
+      basic: [["اللغة العربية", 70, 30, 100], ["اللغة الإنجليزية", 68, 29, 97], ["الرياضيات", 70, 30, 100], ["علوم متكاملة", 69, 28, 97], ["فلسفة", 67, 29, 96], ["تاريخ", 66, 27, 93]],
+      total: 583,
+      fail: [["التربية الدينية", 28, 12, 40], ["اللغة الثانية", 26, 11, 37]],
+      prog: [["البرمجة", 27, 12, 39]]
+    },
+    "30910231401491": {
+      name: " يوسف متولى سيد عزازى ",
+      grade: "الصف الأول",
+      basic: [["اللغة العربية", 55, 24, 79], ["اللغة الإنجليزية", 65,22, 87], ["الرياضيات", 65, 26, 91], ["علوم متكاملة", 64, 28, 92], ["فلسفة", 51, 21, 72], ["تاريخ", 65, 25, 90]],
+      total: 511,
+      fail: [["التربية الدينية", 18, 8, 26], ["اللغة الثانية", 16, 7, 23]],
+      prog: [["البرمجة", 17, 8, 25]]
+    },
+    "31003261400577": {
+      name: "زياد اسامه حلمي طه جاد عماره",
+      grade: "الصف الأول",
+      basic: [
+        ["اللغة العربية", 64, 28, 92],
+        ["اللغة الإنجليزية", 65, 27, 92],
+        ["الرياضيات", 62, 24, 86],
+        ["علوم متكاملة", 56, 21, 77],
+        ["فلسفة", 55, 20, 75],
+        ["تاريخ", 58, 20, 78]
+      ],
+      total: 532,
+      fail: [
+        ["التربية الدينية", 25, 11, 36],
+        ["اللغة الثانية", 25, 11, 36]
+      ],
+      prog: [
+        ["البرمجة", 25, 11, 36]
+      ]
+    },
+    "31010281401101": {
+      name: "يوسف أحمد عبد الله",
+      grade: "الصف الأول",
+      basic: [["اللغة العربية", 60, 25, 85], ["اللغة الإنجليزية", 58, 23, 81], ["الرياضيات", 62, 26, 88], ["علوم متكاملة", 59, 24, 83], ["فلسفة", 61, 25, 86], ["تاريخ", 57, 22, 79]],
+      total: 502,
+      fail: [["التربية الدينية", 22, 10, 32], ["اللغة الثانية", 20, 9, 29]],
+      prog: [["البرمجة", 21, 10, 31]]
+    },
+    "31010281401102": {
+      name: "زياد حسن علي",
+      grade: "الصف الأول",
+      basic: [["اللغة العربية", 55, 22, 77], ["اللغة الإنجليزية", 53, 20, 73], ["الرياضيات", 57, 24, 81], ["علوم متكاملة", 54, 21, 75], ["فلسفة", 56, 23, 79], ["تاريخ", 52, 19, 71]],
+      total: 456,
+      fail: [["التربية الدينية", 19, 9, 28], ["اللغة الثانية", 17, 8, 25]],
+      prog: [["البرمجة", 18, 8, 26]]
+    },
+    "31008311401253": {
+      name: " عمار عاطف عبدالوهاب محمد خضر ",
+      grade: "الصف الأول",
+      basic: [["اللغة العربية", 62, 26, 88], ["اللغة الإنجليزية", 60, 24, 84], ["الرياضيات", 64, 27, 91], ["علوم متكاملة", 61, 25, 86], ["فلسفة", 63, 26, 89], ["تاريخ", 59, 23, 82]],
+      total: 520,
+      fail: [["التربية الدينية", 24, 11, 35], ["اللغة الثانية", 21, 10, 31]],
+      prog: [["البرمجة", 23, 11, 34]]
+    }
+  };
+
+  function searchResult() {
+    const nationalId = document.getElementById('nationalId').value.trim();
+    const resultBox = document.getElementById('resultBox');
+
+    if(nationalId === '') {
+      alert('من فضلك أدخل الرقم القومي');
+      return;
+    }
+
+    const student = studentsDB[nationalId];
+
+    if(!student) {
+      resultBox.innerHTML = '<div class="not-found">غير مسجل</div>';
+      resultBox.style.display = 'block';
+      return;
+    }
+
+    let basicRows = student.basic.map(row =>
+      `<tr>
+        <td class="subject-name">${row[0]}</td>
+        <td>${row[1]}</td>
+        <td>${row[2]}</td>
+        <td>${row[3]}</td>
+      </tr>`
+    ).join('');
+
+    let failRows = student.fail.map(row =>
+      `<tr>
+        <td class="subject-name">${row[0]}</td>
+        <td>${row[1]}</td>
+        <td>${row[2]}</td>
+        <td>${row[3]}</td>
+      </tr>`
+    ).join('');
+
+    let progRows = student.prog.map(row =>
+      `<tr>
+        <td class="subject-name">${row[0]}</td>
+        <td>${row[1]}</td>
+        <td>${row[2]}</td>
+        <td>${row[3]}</td>
+      </tr>`
+    ).join('');
+
+    resultBox.innerHTML = `
+      <div id="certificate">
+        <div class="result-title">بيان درجات: ${student.grade}</div>
+        <div class="student-name"><span class="label-white">اسم الطالب:</span> ${student.name}</div>
+
+        <div class="section-title">المواد الدراسية الأساسية</div>
+        <table>
+          <tr>
+            <th>المادة</th>
+            <th>تقييمات<br>(70)</th>
+            <th>تحريري<br>(30)</th>
+            <th>المجموع<br>(100)</th>
+          </tr>
+          ${basicRows}
+          <tr class="gold-row">
+            <td colspan="3">إجمالي مجموع المواد الأساسية</td>
+            <td>${student.total}</td>
+          </tr>
+        </table>
+
+        <div class="section-title">مواد النجاح والرسوب</div>
+        <table>
+          <tr>
+            <th>المادة</th>
+            <th>تقييمات<br>(28)</th>
+            <th>تحريري<br>(12)</th>
+            <th>المجموع<br>(40)</th>
+          </tr>
+          ${failRows}
+        </table>
+
+        <table>
+          <tr>
+            <th>المادة</th>
+            <th>تقييمات<br>(28)</th>
+            <th>تحريري<br>(12)</th>
+            <th>المجموع<br>(40)</th>
+          </tr>
+          ${progRows}
+        </table>
+
+        <div class="section-title">الأنشطة التربوية</div>
+        <table>
+          <tr>
+            <td class="subject-name">التربية الرياضية</td>
+            <td colspan="3">---</td>
+          </tr>
+          <tr>
+            <td class="subject-name">الأنشطة التربوية</td>
+            <td colspan="3">---</td>
+          </tr>
+        </table>
+      </div>
+
+      <button class="btn-print" onclick="downloadImage()">🖨طباعة الشهاده </button>
+    `;
+
+    resultBox.style.display = 'block';
+    resultBox.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function downloadImage() {
+    const certificate = document.getElementById('certificate');
+
+    html2canvas(certificate, {
+      backgroundColor: '#000',
+      scale: 2
+    }).then(canvas => {
+      const link = document.createElement('a');
+      link.download = 'شهادة_النتيجة.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    });
+  }
+</script>
+
+</body>
+</html>    border-right: 2px solid #c9a227;
     display: flex;
     align-items: center;
     justify-content: center;
